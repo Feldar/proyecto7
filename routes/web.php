@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CatallogController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,22 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'getHome']);
 
-Route::get('encuentro', function () {
-    return view('encuentro');
-});
+Route::get('/catalog', [CatallogController::class, 'getIndex']);
 
-Route::get('about', function () {
-    return view('about');
-});
+Route::get('/catalog/show/{id}', [CatallogController::class, 'getShow']);
 
-Route::get('contact', function () {
-    return view('contact');
-});
+Route::get('/catalog/create', [CatallogController::class, 'getCreate']);
 
-Route::get('Accomplishments', function () {
-    return view('Accomplishments');
-});
+Route::get('/catalog/edit/{id}', [CatallogController::class, 'getEdit']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
